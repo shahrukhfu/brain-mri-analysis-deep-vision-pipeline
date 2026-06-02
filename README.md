@@ -108,6 +108,16 @@ Integrates a spatial self-attention block at the encoder-decoder bottleneck of a
 
 ---
 
+## Dataset Access & Caching
+
+The raw dataset corresponds to the **BraTS Pediatric Brain Tumor Dataset** (containing multimodal NIfTI volumes: T1c, T1n, T2f, T2w, and ground-truth segmentations).
+
+* **Official Research Access**: Registered researchers can request and download the official dataset from the [MICCAI BraTS Challenge on Synapse](https://www.synapse.org/).
+* **Local Setup**: If you download the raw data, place the patient folders inside a directory named `dataset/` in the project root. The `.gitignore` is pre-configured to ignore this folder.
+* **Offline Execution (Zero-Setup)**: Because the extracted 2D axial slices are cached in `scratch/extracted_slices.pkl`, the notebook and pipeline are fully functional and verifiable immediately without downloading the raw 3D data.
+
+---
+
 ## Setup & Running the Pipeline
 
 ### Prerequisites
