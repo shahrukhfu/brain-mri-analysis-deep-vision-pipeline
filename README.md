@@ -21,10 +21,10 @@ graph TD
     G --> H[Random Forest Slice-Level Classifier]
     C --> I[Phase 4: Hybrid CNN-Attention U-Net]
     I --> J[Pixel-Level Segmentations & Dice Evaluation]
-    style C fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
-    style G fill:#fbb,stroke:#333,stroke-width:2px
-    style I fill:#bfb,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px,color:#111
+    style D fill:#bbf,stroke:#333,stroke-width:2px,color:#111
+    style G fill:#fbb,stroke:#333,stroke-width:2px,color:#111
+    style I fill:#bfb,stroke:#333,stroke-width:2px,color:#111
 ```
 
 ---
