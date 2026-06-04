@@ -14,18 +14,18 @@
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 <p align="center">
-  <b><a href="#-project-overview">Project Overview</a></b> • 
-  <b><a href="#%EF%B8%8F-pipeline-phases">Pipeline Phases</a></b> • 
-  <b><a href="#-deliverables--results-visualizations">Results &amp; Visualizations</a></b> • 
-  <b><a href="#-directory-structure">Directory Structure</a></b> • 
-  <b><a href="#%EF%B8%8F-setup--running-the-pipeline">Setup &amp; Running</a></b>
+  <b><a href="#project-overview">Project Overview</a></b> • 
+  <b><a href="#pipeline-phases">Pipeline Phases</a></b> • 
+  <b><a href="#deliverables--results-visualizations">Results &amp; Visualizations</a></b> • 
+  <b><a href="#directory-structure">Directory Structure</a></b> • 
+  <b><a href="#setup--running-the-pipeline">Setup &amp; Running</a></b>
 </p>
 
 ---
 
-## 🔍 Project Overview
+## Project Overview
 
 This repository implements an end-to-end medical image processing and deep learning pipeline applied to the **Brain Tumor Segmentation (BraTS) pediatric dataset** (25 patients). The pipeline integrates spatial domain restoration, boundary chain coding, computational geometry (custom Graham Scan convex hulls), statistical texture analysis (GLCM), and semantic segmentation utilizing a hybrid **CNN-Attention U-Net** architecture.
 
@@ -51,10 +51,10 @@ graph TD
 
 ---
 
-## 🛠️ Pipeline Phases
+## Pipeline Phases
 
 <details open>
-<summary><b>▼ Phase 1: Spatial Domain Restoration &amp; Anti-Aliasing</b></summary>
+<summary><b>Phase 1: Spatial Domain Restoration &amp; Anti-Aliasing</b></summary>
 <br>
 
 * **Objective**: Denoise raw axial MRI slices containing high sensor noise without corrupting structural tumor boundaries.
@@ -66,7 +66,7 @@ graph TD
 </details>
 
 <details>
-<summary><b>▼ Phase 2: Edge-Guided Segmentation &amp; Convex Hulls</b></summary>
+<summary><b>Phase 2: Edge-Guided Segmentation &amp; Convex Hulls</b></summary>
 <br>
 
 * **Objective**: Segment tumor region boundaries and extract structural descriptors.
@@ -78,7 +78,7 @@ graph TD
 </details>
 
 <details>
-<summary><b>▼ Phase 3: GLCM Feature Extraction &amp; Traditional ML</b></summary>
+<summary><b>Phase 3: GLCM Feature Extraction &amp; Traditional ML</b></summary>
 <br>
 
 * **Objective**: Classify slices as Malignant vs. Benign based on statistical and geometric descriptors.
@@ -90,7 +90,7 @@ graph TD
 </details>
 
 <details>
-<summary><b>▼ Phase 4: Hybrid CNN-Attention U-Net Segmentation</b></summary>
+<summary><b>Phase 4: Hybrid CNN-Attention U-Net Segmentation</b></summary>
 <br>
 
 * **Objective**: Perform pixel-level segmentation of the brain tumor.
@@ -102,18 +102,18 @@ graph TD
 
 ---
 
-## 📊 Deliverables &amp; Results Visualizations
+## Deliverables &amp; Results Visualizations
 
 ### 1. Image Restoration Metrics (Phase 1)
 The spatial filters are evaluated below. A comparison of Peak Signal-to-Noise Ratio (PSNR) and Structural Similarity Index (SSIM) indicates that the **Median filter** is superior for Salt-and-Pepper noise, while the **Gaussian filter** provides optimal noise reduction for Gaussian sensor noise.
 
 | Metric / Noise Profile | Filter Applied | PSNR (dB) | Relative Strength (PSNR) | SSIM | Relative SSIM |
 | :--- | :--- | :---: | :--- | :---: | :--- |
-| **Noisy** Gaussian ($\sigma^2=0.01$) | None | 21.98 | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="73" height="10" fill="#64748b" rx="2"/></svg> | 0.2694 | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="27" height="10" fill="#64748b" rx="2"/></svg> |
-| **Restored** Gaussian ($\sigma^2=0.01$) | **Gaussian ($5 \times 5, \sigma=1.0$)** | **26.46** | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="88" height="10" fill="#0ea5e9" rx="2"/></svg> | 0.5054 | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="50" height="10" fill="#0ea5e9" rx="2"/></svg> |
-| **Restored** Gaussian ($\sigma^2=0.01$) | Mean ($5 \times 5$) | 24.97 | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="83" height="10" fill="#0284c7" rx="2"/></svg> | **0.5100** | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="51" height="10" fill="#10b981" rx="2"/></svg> |
-| **Noisy** Salt-and-Pepper (2%) | None | 20.62 | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="68" height="10" fill="#64748b" rx="2"/></svg> | 0.6676 | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="67" height="10" fill="#64748b" rx="2"/></svg> |
-| **Restored** Salt-and-Pepper (2%) | **Median ($5 \times 5$)** | **28.43** | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="95" height="10" fill="#10b981" rx="2"/></svg> | **0.9201** | <svg width="100" height="10"><rect width="100" height="10" fill="#1e293b" rx="2"/><rect width="92" height="10" fill="#10b981" rx="2"/></svg> |
+| **Noisy** Gaussian ($\sigma^2=0.01$) | None | 21.98 | `███████░░░` | 0.2694 | `███░░░░░░░` |
+| **Restored** Gaussian ($\sigma^2=0.01$) | **Gaussian ($5 \times 5, \sigma=1.0$)** | **26.46** | `█████████░` | 0.5054 | `█████░░░░░` |
+| **Restored** Gaussian ($\sigma^2=0.01$) | Mean ($5 \times 5$) | 24.97 | `████████░░` | **0.5100** | `█████░░░░░` |
+| **Noisy** Salt-and-Pepper (2%) | None | 20.62 | `███████░░░` | 0.6676 | `███████░░░` |
+| **Restored** Salt-and-Pepper (2%) | **Median ($5 \times 5$)** | **28.43** | `██████████` | **0.9201** | `█████████░` |
 
 ---
 
@@ -167,13 +167,10 @@ Integrates a spatial self-attention block at the skip connections to filter nois
 </p>
 
 <details>
-<summary><b>📊 View Phase 4 Validation Confusion Matrix</b></summary>
+<summary><b>View Phase 4 Validation Confusion Matrix</b></summary>
 <br>
 
 The model shows a high sensitivity (0.8033) for locating tumor regions, which is preferred in clinical screenings to minimize missed diagnoses (False Negatives).
-
-<p align="center">
-</p>
 
 <table align="center" style="margin: 0 auto; text-align: center; border-collapse: collapse;">
   <tr>
@@ -201,7 +198,7 @@ The model shows a high sensitivity (0.8033) for locating tumor regions, which is
 
 ---
 
-## 📂 Directory Structure
+## Directory Structure
 
 ```text
 ├── assets/                     # SVG Animations and banners
@@ -227,7 +224,7 @@ The model shows a high sensitivity (0.8033) for locating tumor regions, which is
 
 ---
 
-## ⚙️ Setup &amp; Running the Pipeline
+## Setup &amp; Running the Pipeline
 
 ### Prerequisites
 Ensure Python 3.10.6 is installed. Install all pipeline dependencies:
@@ -239,7 +236,7 @@ pip install torch numpy opencv-python scipy matplotlib scikit-image scikit-learn
 You can run and evaluate all pipeline steps in one go.
 
 <details>
-<summary><b>🚀 Run Notebook in Terminal (Recommended)</b></summary>
+<summary><b>Run Notebook in Terminal (Recommended)</b></summary>
 <br>
 
 To execute the notebook cells headlessly in your command line:
@@ -251,7 +248,7 @@ This runs the whole processing, computes features, trains the Random Forest &amp
 </details>
 
 <details>
-<summary><b>📓 Run Jupyter Notebook interactively</b></summary>
+<summary><b>Run Jupyter Notebook interactively</b></summary>
 <br>
 
 Open the main notebook in VS Code or run:
@@ -264,7 +261,7 @@ Run cells step-by-step to view interactive matplotlib plots and detailed perform
 
 ---
 
-## 🧬 Dataset Access &amp; Caching
+## Dataset Access &amp; Caching
 
 The raw dataset corresponds to the **BraTS Pediatric Brain Tumor Dataset** (containing multimodal NIfTI volumes: T1c, T1n, T2f, T2w, and ground-truth segmentations).
 

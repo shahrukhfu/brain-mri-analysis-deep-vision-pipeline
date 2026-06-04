@@ -27,7 +27,9 @@
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
-    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 6 5 L 0 8.5 z" fill="#334155" />
+    </marker>
   </defs>
 
   <style>
@@ -177,14 +179,7 @@
   <!-- Gating signal from Bottleneck/Decoder up to AG -->
   <path class="skip-line" stroke="#10b981" d="M 400 190 Q 390 175 390 166" />
 
-  <!-- Flow Markers (Arrows) Definition -->
-  <svg>
-    <defs>
-      <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-        <path d="M 0 1.5 L 6 5 L 0 8.5 z" fill="#334155" />
-      </marker>
-    </defs>
-  </svg>
+
 
   <!-- --- ANIMATED PARTICLES TRAVERSING SKIPS & PIPELINE --- -->
 
