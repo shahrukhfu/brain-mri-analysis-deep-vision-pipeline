@@ -27,6 +27,7 @@
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
+    </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1.5 L 6 5 L 0 8.5 z" fill="#334155" />
     </marker>
@@ -99,9 +100,9 @@
 
   <!-- Title -->
   <text x="30" y="35" class="title-unet">Hybrid CNN-Attention U-Net Architecture</text>
-  <text x="30" y="55" class="text-lbl" text-anchor="start" fill="#64748b">Bottleneck Self-Attention &amp; Skip Connection Gating</text>
+  <text x="30" y="55" class="text-lbl" text-anchor="start" fill="#64748b">Bottleneck Self-Attention and Skip Connection Gating</text>
 
-  <!-- --- NET BLOCKS --- -->
+  <!-- NET BLOCKS -->
 
   <!-- 1. Input Image Slice -->
   <g transform="translate(60, 100)">
@@ -152,7 +153,7 @@
     <text x="15" y="65" class="text-lbl" fill="#ffffff" font-weight="bold">Tumor Mask</text>
   </g>
 
-  <!-- --- CONNECTIONS & FLOW --- -->
+  <!-- CONNECTIONS AND FLOW -->
 
   <!-- Feedforward Down-Path -->
   <path class="arrow-line" d="M 90 160 H 160" marker-end="url(#arrow)" />
@@ -181,7 +182,7 @@
 
 
 
-  <!-- --- ANIMATED PARTICLES TRAVERSING SKIPS & PIPELINE --- -->
+  <!-- ANIMATED PARTICLES TRAVERSING SKIPS AND PIPELINE -->
 
   <!-- Skip 1 Particle (Slow) -->
   <circle r="4" fill="#818cf8" filter="url(#glow-cyan-unet)">
