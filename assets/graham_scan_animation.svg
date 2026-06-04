@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-hull" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a13" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    
+    <filter id="glow-cyan-hull" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-red-hull" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    /* Styling */
+    .title-hull {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      fill: #f8fafc;
+    }
+    .text-desc {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px;
+      fill: #94a3b8;
+    }
+    .point-lbl {
+      font-family: 'monospace';
+      font-size: 10px;
+      fill: #cbd5e1;
+    }
+    
+    /* Animation Keyframes */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    /* Sweep Line */
+    @keyframes sweepAngle {
+      0% { transform: rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      40% { transform: rotate(-140deg); opacity: 0.4; }
+      45% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    
+    /* Traced Lines */
+    @keyframes path-p0-p3 {
+      0%, 35% { stroke-dashoffset: 400; opacity: 0; }
+      45% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+    
+    @keyframes path-p3-p4 {
+      0%, 45% { stroke-dashoffset: 100; opacity: 0; }
+      52% { stroke-dashoffset: 0; opacity: 1; stroke: #38bdf8; }
+      58% { stroke: #ef4444; opacity: 1; }
+      65%, 100% { opacity: 0; } /* Popped/Backtracked */
+    }
+    
+    @keyframes error-flash {
+      0%, 55% { opacity: 0; transform: scale(1); }
+      58% { opacity: 1; transform: scale(1.2); }
+      64% { opacity: 0; transform: scale(1); }
+      100% { opacity: 0; }
+    }
+
+    @keyframes path-p3-p5-correct {
+      0%, 65% { stroke-dashoffset: 150; opacity: 0; }
+      72% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+
+    @keyframes path-p5-p0 {
+      0%, 72% { stroke-dashoffset: 400; opacity: 0; }
+      82% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+
+    @keyframes final-hull {
+      0%, 82% { opacity: 0; }
+      88%, 98% { opacity: 0.25; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes text-step-sync {
+      0%, 12% { content: "Step 1: Identify pivot point P0 (lowest Y)"; }
+      13%, 38% { content: "Step 2: Sort points by polar angle relative to P0"; }
+      39%, 52% { content: "Step 3: Push points onto stack. Try P1, P2, P3..."; }
+      53%, 64% { content: "Step 4: Push P4. Wait! P2 -> P3 -> P4 is a RIGHT turn!"; }
+      65%, 72% { content: "Step 5: POP P4 from stack. Backtrack to P3."; }
+      73%, 82% { content: "Step 6: Push P5. P3 -> P5 is a valid LEFT turn."; }
+      83%, 98% { content: "Step 7: Complete remaining vertices. Hull locked!"; }
+      99%, 100% { content: "Step 1: Identify pivot point P0 (lowest Y)"; }
+    }
+    
+    /* Animation Assignment */
+    .anim-fade { animation: fadeIn 1s forwards; }
+    .sweep-line {
+      transform-origin: 300px 300px;
+      animation: sweepAngle 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Traced lines lengths */
+    .line-p0-p3 {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: path-p0-p3 12s infinite linear;
+    }
+    .line-p3-p4 {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: path-p3-p4 12s infinite linear;
+    }
+    .line-p3-p5-ok {
+      stroke-dasharray: 150;
+      stroke-dashoffset: 150;
+      animation: path-p3-p5-correct 12s infinite linear;
+    }
+    .line-p5-p0 {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: path-p5-p0 12s infinite linear;
+    }
+    .pop-alert {
+      animation: error-flash 12s infinite ease-out;
+      transform-origin: 320px 150px;
+    }
+    .final-polygon {
+      animation: final-hull 12s infinite ease-in-out;
+    }
+    .step-text::after {
+      content: "";
+      animation: text-step-sync 12s infinite linear;
+    }
+  </style>
+
+  <!-- Background -->
+  <rect width="600" height="350" rx="12" fill="url(#bg-grad-hull)" stroke="#1e293b" stroke-width="1.5" />
+  
+  <!-- Subtle Grid -->
+  <g stroke="#334155" stroke-width="0.5" stroke-opacity="0.2">
+    <path d="M 50 0 L 50 350 M 100 0 L 100 350 M 150 0 L 150 350 M 200 0 L 200 350 M 250 0 L 250 350 M 300 0 L 300 350 M 350 0 L 350 350 M 400 0 L 400 350 M 450 0 L 450 350 M 500 0 L 500 350 M 550 0 L 550 350" />
+    <path d="M 0 50 L 600 50 M 0 100 L 600 100 M 0 150 L 600 150 M 0 200 L 600 200 M 0 250 L 600 250 M 0 300 L 600 300" />
+  </g>
+
+  <!-- Title & Step Indicator -->
+  <text x="25" y="35" class="title-hull">Graham Scan Convex Hull Solver</text>
+  <text x="25" y="55" class="step-text text-desc" fill="#38bdf8" font-weight="600"></text>
+
+  <!-- Coordinate Plane Origin (P0 - Pivot) -->
+  <!-- Polar sweep line -->
+  <line class="sweep-line" x1="300" y1="300" x2="520" y2="300" stroke="#0ea5e9" stroke-width="1" stroke-dasharray="4, 4" opacity="0" />
+  <circle cx="300" cy="300" r="140" fill="none" stroke="#0ea5e9" stroke-opacity="0.05" stroke-dasharray="2, 6" />
+
+  <!-- Connecting Lines (Animated) -->
+  <!-- P0 -> P1 -> P2 -> P3 -->
+  <path class="line-p0-p3" d="M 300 300 L 450 260 L 470 180 L 400 110" fill="none" stroke="#38bdf8" stroke-width="2" />
+  
+  <!-- P3 -> P4 (Tentative) -->
+  <path class="line-p3-p4" d="M 400 110 L 320 150" fill="none" stroke="#38bdf8" stroke-width="2" />
+
+  <!-- P3 -> P5 (Correct after popping P4) -->
+  <path class="line-p3-p5-ok" d="M 400 110 L 230 90" fill="none" stroke="#38bdf8" stroke-width="2" />
+
+  <!-- P5 -> P6 -> P7 -> P0 (Completion) -->
+  <path class="line-p5-p0" d="M 230 90 L 140 170 L 170 250 L 300 300" fill="none" stroke="#38bdf8" stroke-width="2" />
+
+  <!-- Backtrack Warning Indicator -->
+  <g class="pop-alert" opacity="0">
+    <circle cx="320" cy="150" r="18" fill="none" stroke="#ef4444" stroke-width="2" filter="url(#glow-red-hull)" />
+    <line x1="315" y1="145" x2="325" y2="155" stroke="#ef4444" stroke-width="3" />
+    <line x1="325" y1="145" x2="315" y2="155" stroke="#ef4444" stroke-width="3" />
+  </g>
+
+  <!-- Points & Nodes -->
+  <!-- Pivot P0 (Green) -->
+  <g class="anim-fade">
+    <circle cx="300" cy="300" r="7" fill="#10b981" filter="url(#glow-cyan-hull)" />
+    <circle cx="300" cy="300" r="3" fill="#ffffff" />
+    <text x="300" y="320" class="point-lbl" text-anchor="middle" font-weight="bold" fill="#10b981">P0 [Pivot]</text>
+  </g>
+
+  <!-- P1 -->
+  <g class="anim-fade">
+    <circle cx="450" cy="260" r="5" fill="#38bdf8" />
+    <text x="462" y="264" class="point-lbl">P1</text>
+  </g>
+
+  <!-- P2 -->
+  <g class="anim-fade">
+    <circle cx="470" cy="180" r="5" fill="#38bdf8" />
+    <text x="482" y="184" class="point-lbl">P2</text>
+  </g>
+
+  <!-- P3 -->
+  <g class="anim-fade">
+    <circle cx="400" cy="110" r="5" fill="#38bdf8" />
+    <text x="412" y="108" class="point-lbl">P3</text>
+  </g>
+
+  <!-- P4 (The Indent / Concave point) -->
+  <g class="anim-fade">
+    <circle cx="320" cy="150" r="5" fill="#64748b" />
+    <text x="328" y="145" class="point-lbl" fill="#94a3b8">P4 [Concave]</text>
+  </g>
+
+  <!-- P5 -->
+  <g class="anim-fade">
+    <circle cx="230" cy="90" r="5" fill="#38bdf8" />
+    <text x="220" y="80" class="point-lbl">P5</text>
+  </g>
+
+  <!-- P6 -->
+  <g class="anim-fade">
+    <circle cx="140" cy="170" r="5" fill="#38bdf8" />
+    <text x="123" y="174" class="point-lbl">P6</text>
+  </g>
+
+  <!-- P7 -->
+  <g class="anim-fade">
+    <circle cx="170" cy="250" r="5" fill="#38bdf8" />
+    <text x="153" y="254" class="point-lbl">P7</text>
+  </g>
+
+  <!-- Completed Convex Hull Shaded Overlay (Pulse at the end) -->
+  <polygon class="final-polygon" points="300,300 450,260 470,180 400,110 230,90 140,170 170,250" 
+           fill="#22d3ee" fill-opacity="0" stroke="#22d3ee" stroke-width="3" filter="url(#glow-cyan-hull)" opacity="0" />
+</svg>

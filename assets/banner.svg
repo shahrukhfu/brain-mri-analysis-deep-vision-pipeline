@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060913" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    
+    <!-- Text Gradient -->
+    <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+
+    <!-- Scan Line Gradient -->
+    <linearGradient id="scan-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0" />
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-text" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .title {
+      font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 34px;
+      fill: url(#text-grad);
+      letter-spacing: 2px;
+    }
+    .subtitle {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      fill: #94a3b8;
+      letter-spacing: 4px;
+    }
+    .tagline {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      fill: #64748b;
+    }
+    .grid-lines {
+      stroke: #334155;
+      stroke-width: 0.5;
+      stroke-opacity: 0.3;
+    }
+    
+    /* Animations */
+    @keyframes scanMove {
+      0% { transform: translateY(40px); }
+      50% { transform: translateY(220px); }
+      100% { transform: translateY(40px); }
+    }
+    @keyframes pulseTumor {
+      0% { opacity: 0.3; filter: drop-shadow(0 0 2px rgba(239,68,68,0.5)); }
+      50% { opacity: 0.9; filter: drop-shadow(0 0 12px rgba(239,68,68,0.9)); }
+      100% { opacity: 0.3; filter: drop-shadow(0 0 2px rgba(239,68,68,0.5)); }
+    }
+    @keyframes dashArray {
+      to { stroke-dashoffset: -20; }
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+      50% { transform: translateY(-10px) translateX(5px); opacity: 0.7; }
+      100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+    }
+    @keyframes sweepAngle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .scanner-bar {
+      animation: scanMove 6s infinite ease-in-out;
+    }
+    .tumor-pulse {
+      animation: pulseTumor 3s infinite ease-in-out;
+    }
+    .hull-dash {
+      stroke-dasharray: 6, 4;
+      animation: dashArray 4s infinite linear;
+    }
+    .particle-1 { animation: floatParticle 5s infinite ease-in-out; }
+    .particle-2 { animation: floatParticle 7s infinite ease-in-out; }
+    .particle-3 { animation: floatParticle 6s infinite ease-in-out 1s; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="260" rx="16" fill="url(#bg-grad)" />
+
+  <!-- Grid Overlay -->
+  <g class="grid-lines">
+    <path d="M 0 40 L 800 40 M 0 80 L 800 80 M 0 120 L 800 120 M 0 160 L 800 160 M 0 200 L 800 200 M 0 240 L 800 240" />
+    <path d="M 60 0 L 60 260 M 120 0 L 120 260 M 180 0 L 180 260 M 240 0 L 240 260 M 300 0 L 300 260 M 360 0 L 360 260 M 420 0 L 420 260 M 480 0 L 480 260 M 540 0 L 540 260 M 600 0 L 600 260 M 660 0 L 660 260 M 720 0 L 720 260" />
+  </g>
+
+  <!-- Left Side: Brain MRI Simulation Graphic -->
+  <g transform="translate(20, 0)">
+    <!-- Outer Circular Frame -->
+    <circle cx="130" cy="130" r="90" fill="#0b1329" stroke="#1e293b" stroke-width="2" />
+    <circle cx="130" cy="130" r="95" fill="none" stroke="#334155" stroke-dasharray="2, 8" />
+
+    <!-- Brain MRI Slice Silhouette (Symmetric cerebral hemispheres) -->
+    <!-- Left Hemisphere -->
+    <path d="M 126 60 C 95 60, 70 85, 70 125 C 70 165, 95 195, 126 200 C 122 185, 120 165, 124 130 C 127 100, 129 80, 126 60 Z" 
+          fill="#1e293b" fill-opacity="0.6" stroke="#475569" stroke-width="1.5" />
+    <!-- Right Hemisphere -->
+    <path d="M 134 60 C 165 60, 190 85, 190 125 C 190 165, 165 195, 134 200 C 138 185, 140 165, 136 130 C 133 100, 131 80, 134 60 Z" 
+          fill="#1e293b" fill-opacity="0.6" stroke="#475569" stroke-width="1.5" />
+          
+    <!-- Ventricles / Deep Brain Structures (Center details) -->
+    <path d="M 126 110 C 115 115, 115 130, 126 135 C 122 130, 122 118, 126 110 Z" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <path d="M 134 110 C 145 115, 145 130, 134 135 C 138 130, 138 118, 134 110 Z" fill="#0f172a" stroke="#334155" stroke-width="1" />
+
+    <!-- Tumor Region (Pulsing Highlight) -->
+    <!-- Traced raw contour -->
+    <path class="tumor-pulse" d="M 152 110 C 160 95, 178 100, 175 118 C 172 130, 162 135, 150 125 C 145 120, 148 115, 152 110 Z" 
+          fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-width="2" filter="url(#glow-red)" />
+          
+    <!-- Convex Hull (Graham Scan Overlay - white dashed animated) -->
+    <polygon class="hull-dash" points="144,117 155,98 174,101 179,118 165,134 148,127" 
+             fill="none" stroke="#ffffff" stroke-width="1.5" filter="url(#glow-cyan)" />
+    
+    <!-- Scanning Laser Line (Moves up/down) -->
+    <g class="scanner-bar">
+      <!-- Glow under scanning line -->
+      <rect x="35" y="-6" width="190" height="12" fill="url(#scan-grad)" />
+      <!-- Sharp laser line -->
+      <line x1="35" y="0" x2="225" y2="0" stroke="#0ea5e9" stroke-width="2" filter="url(#glow-cyan)" />
+      <!-- Scanning dot -->
+      <circle cx="130" cy="0" r="3" fill="#ffffff" filter="url(#glow-cyan)" />
+    </g>
+
+    <!-- Scanner coordinate indicator -->
+    <circle cx="130" cy="130" r="82" fill="none" stroke="#0ea5e9" stroke-opacity="0.1" />
+  </g>
+
+  <!-- Right Side: Project Meta & Title -->
+  <!-- Main Title -->
+  <text x="290" y="95" class="title" filter="url(#glow-text)">BRAIN MRI PIPELINE</text>
+  
+  <!-- Subtitle -->
+  <text x="292" y="125" class="subtitle">MULTIMODAL DEEP VISION PIPELINE</text>
+
+  <!-- Pipeline Phase Tags (Pills) -->
+  <g transform="translate(292, 148)">
+    <!-- Phase 1 -->
+    <rect x="0" y="0" width="85" height="20" rx="4" fill="#1e1b4b" stroke="#312e81" stroke-width="1" />
+    <text x="42.5" y="14" fill="#a5b4fc" font-family="Inter, sans-serif" font-weight="600" font-size="9" text-anchor="middle">RESTORATION</text>
+
+    <!-- Phase 2 -->
+    <rect x="93" y="0" width="85" height="20" rx="4" fill="#062f4f" stroke="#0c4a6e" stroke-width="1" />
+    <text x="135.5" y="14" fill="#7dd3fc" font-family="Inter, sans-serif" font-weight="600" font-size="9" text-anchor="middle">CONVEX HULL</text>
+
+    <!-- Phase 3 -->
+    <rect x="186" y="0" width="85" height="20" rx="4" fill="#1c1917" stroke="#44403c" stroke-width="1" />
+    <text x="228.5" y="14" fill="#d6d3d1" font-family="Inter, sans-serif" font-weight="600" font-size="9" text-anchor="middle">GLCM TEXTURE</text>
+
+    <!-- Phase 4 -->
+    <rect x="279" y="0" width="85" height="20" rx="4" fill="#022c22" stroke="#064e3b" stroke-width="1" />
+    <text x="321.5" y="14" fill="#6ee7b7" font-family="Inter, sans-serif" font-weight="600" font-size="9" text-anchor="middle">ATTENTION U-NET</text>
+  </g>
+
+  <!-- Technical Spec Details -->
+  <g transform="translate(292, 195)" class="tagline" font-family="monospace">
+    <text x="0" y="0" fill="#38bdf8">● CV Accuracy: <tspan fill="#ffffff">92.00%</tspan></text>
+    <text x="170" y="0" fill="#38bdf8">● DL Dice Score: <tspan fill="#ffffff">0.5037</tspan></text>
+    <text x="0" y="20" fill="#64748b">Dataset: BraTS Pediatric (25 Patients)</text>
+    <text x="240" y="20" fill="#64748b">Codebase: PyTorch / Jupyter</text>
+  </g>
+
+  <!-- Floating Decorative Particles -->
+  <circle class="particle-1" cx="260" cy="70" r="2" fill="#38bdf8" />
+  <circle class="particle-2" cx="720" cy="180" r="1.5" fill="#c084fc" />
+  <circle class="particle-3" cx="690" cy="60" r="2" fill="#34d399" />
+  <circle class="particle-1" cx="70" cy="40" r="1.5" fill="#f87171" />
+  <circle class="particle-2" cx="220" cy="220" r="2" fill="#818cf8" />
+</svg>
