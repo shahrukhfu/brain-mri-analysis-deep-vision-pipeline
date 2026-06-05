@@ -127,9 +127,10 @@ The custom Graham Scan algorithm constructs a Convex Hull around the segmented t
 </p>
 
 <p align="center">
-  <img src="before_after_dataset/convex_hull/BraTS-PED-00075-000_convex_hull.png" width="380" alt="Graham Scan Convex Hull Output" />
+  <img src="before_after_dataset/segmented/BraTS-PED-00075-000_cleaned_mask.png" width="45%" alt="Cleaned Tumor Mask" />
+  <img src="before_after_dataset/convex_hull/BraTS-PED-00075-000_convex_hull.png" width="45%" alt="Graham Scan Convex Hull Output" />
   <br>
-  <em>Figure 1: Traced tumor boundary contour (Gray) vs Computed Graham Scan Convex Hull (White)</em>
+  <em>Figure 1: Cleaned Tumor Mask (Left) vs. Traced tumor boundary contour &amp; computed Graham Scan Convex Hull (Right)</em>
 </p>
 
 ---
@@ -161,7 +162,9 @@ Integrates a spatial self-attention block at the skip connections to filter nois
 * **Precision**: **0.3669**
 
 <p align="center">
-  <img src="before_after_dataset/segmented/dl_sample_pred.png" width="100%" alt="Deep Learning Segmentation Output" />
+  <img src="before_after_dataset/segmented/dl_sample_input.png" width="32%" alt="Input Slice" />
+  <img src="before_after_dataset/segmented/dl_sample_gt.png" width="32%" alt="Ground-Truth Mask" />
+  <img src="before_after_dataset/segmented/dl_sample_pred.png" width="32%" alt="CNN-Attention U-Net Prediction" />
   <br>
   <em>Figure 2: Side-by-side segmentation output: Input Slice (Left), Ground-Truth Mask (Middle), CNN-Attention U-Net Prediction (Right)</em>
 </p>
